@@ -5,286 +5,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invoice - The Style Room</title>
   <style>
-    /* ========================= */
-    /* General Styles */
-    /* ========================= */
-    body {
-      font-family: "Noto Sans Bengali", sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f5f5f5;
-      color: #333;
-    }
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      background: #222;
-    }
-    .navbar .logo {
-      height: 50px;
-    }
-    .navbar nav a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 30px auto;
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    h2 { text-align: center; margin-bottom: 20px; }
-
-    /* Customer Info */
-    .customer-info input {
-      width: calc(33% - 10px);
-      padding: 8px;
-      margin: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    /* Product Table */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: center;
-    }
-    th { background: #f0f0f0; }
-    td img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
-
-    input[type="number"] {
-      width: 60px;
-    }
-
-    /* Buttons */
-    .buttons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 15px;
-      margin-top: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .cancel { background: #ccc; }
-    .submit { background: #ff5722; color: #fff; }
-
-    /* Modal for Invoice Memo */
-    .modal {
-      display: none;
-      position: fixed;
-      top:0; left:0; width:100%; height:100%;
-      background-color: rgba(0,0,0,0.6);
-      z-index: 999;
-    }
-    .modal-content {
-      background: #fff;
-      margin: 30px auto;
-      padding: 20px;
-      max-width: 700px;
-      border-radius: 12px;
-      position: relative;
-    }
-    .modal-logo {
-      width: 100px;
-      opacity: 0.1;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 0;
-    }
-    .modal-inner { position: relative; z-index: 1; }
-    .close {
-      position: absolute;
-      top: 10px; right: 15px;
-      font-size: 28px;
-      cursor: pointer;
-      color: #333;
-    }
-
-    /* Invoice Memo */
-    .invoice-header { text-align: center; margin-bottom: 20px; font-size: 24px; font-weight: bold; }
-    .invoice-footer { text-align: right; margin-top: 30px; font-style: italic; }
-
-    @media (max-width: 600px) {
-      .customer-info input { width: 100%; margin: 5px 0; }
-    }
-
+    body { font-family:"Noto Sans Bengali", sans-serif; margin:0; padding:0; background:#f5f5f5; color:#333; }
+    .container { max-width:700px; margin:30px auto; background:#fff; padding:20px 30px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+    h2{text-align:center; margin-bottom:20px;}
+    form input, form select, form textarea { width:100%; padding:10px; margin:8px 0; border-radius:6px; border:1px solid #ccc; }
+    .buttons { display:flex; justify-content:flex-end; gap:15px; margin-top:15px; }
+    button { padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
+    .cancel{background:#ccc;} .submit{background:#ff5722; color:#fff;}
+    .modal{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999;}
+    .modal-content{background:#fff; margin:30px auto; padding:20px; max-width:700px; border-radius:12px; position:relative;}
+    .modal-logo{width:100px; opacity:0.1; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:0;}
+    .modal-inner{position:relative; z-index:1;}
+    .close{position:absolute; top:10px; right:15px; font-size:28px; cursor:pointer; color:#333;}
+    .invoice-header{text-align:center; margin-bottom:20px; font-size:24px; font-weight:bold;}
+    .invoice-footer{text-align:right; margin-top:30px; font-style:italic;}
   </style>
 </head>
 <body>
-
-  <!-- Navbar -->
-  <header class="navbar">
-    <img src="logo.png" alt="The StyleRoom Logo" class="logo">
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="contact.html">Contact</a>
-      <a href="invoice.html" class="active">Invoice</a>
-      <a href="order.html">Order</a>
-      <a href="styleroom.html">Style Room</a>
-      <a href="dashboard.html">Dashboard</a>
-    </nav>
-  </header>
-
   <div class="container">
-    <h2>Invoice</h2>
-
-    <!-- Customer Info -->
-    <div class="customer-info">
-      <input type="text" id="invoiceNumber" placeholder="Invoice Number (11 digits)" maxlength="11">
-      <input type="text" id="customerName" placeholder="Customer Name">
-      <input type="text" id="customerAddress" placeholder="Address">
-    </div>
-
-    <!-- Products Table -->
-    <table id="productTable">
-      <thead>
-        <tr>
-          <th>Product Image</th>
-          <th>Product Name</th>
-          <th>Quantity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><img src="tshirt1.jpg" alt="Product"></td>
-          <td>Cool Blue Tee</td>
-          <td><input type="number" min="0" value="0" class="quantity"></td>
-        </tr>
-        <tr>
-          <td><img src="tshirt2.jpg" alt="Product"></td>
-          <td>Urban Black Tee</td>
-          <td><input type="number" min="0" value="0" class="quantity"></td>
-        </tr>
-        <tr>
-          <td><img src="tshirt3.jpg" alt="Product"></td>
-          <td>Classic White Tee</td>
-          <td><input type="number" min="0" value="0" class="quantity"></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="buttons">
-      <button class="cancel" onclick="resetForm()">Cancel</button>
-      <button class="submit" onclick="generateInvoice()">Submit</button>
-    </div>
+    <h2>Generate Invoice / Memo</h2>
+    <form id="invoiceForm">
+      <input type="text" id="customerName" placeholder="Customer Name" required>
+      <input type="text" id="customerPhone" placeholder="Phone (+880)" required>
+      <input type="text" id="customerAddress" placeholder="Address" required>
+      <select id="productSelect" required>
+        <option value="">Select Product</option>
+        <option value="Cool Blue Tee">Cool Blue Tee</option>
+        <option value="Urban Black Tee">Urban Black Tee</option>
+        <option value="Classic White Tee">Classic White Tee</option>
+      </select>
+      <input type="number" id="productQty" placeholder="Quantity" min="1" value="1">
+      <textarea id="orderMemo" placeholder="Order Memo / Notes (Optional)"></textarea>
+      <div class="buttons">
+        <button type="reset" class="cancel">Cancel</button>
+        <button type="submit" class="submit">Generate Invoice</button>
+      </div>
+    </form>
   </div>
 
-  <!-- Modal for Invoice Memo -->
+  <!-- Modal -->
   <div id="invoiceModal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
+      <span class="close">&times;</span>
       <img src="logo.png" class="modal-logo" alt="Logo">
       <div class="modal-inner" id="invoiceContent"></div>
     </div>
   </div>
 
   <script>
-    // Reset form
-    function resetForm() {
-      document.getElementById("invoiceNumber").value = "";
-      document.getElementById("customerName").value = "";
-      document.getElementById("customerAddress").value = "";
-      document.querySelectorAll(".quantity").forEach(q => q.value = 0);
-    }
+    const invoiceForm = document.getElementById("invoiceForm");
+    const modal = document.getElementById("invoiceModal");
+    const modalContent = document.getElementById("invoiceContent");
+    const closeModalBtn = document.querySelector(".close");
 
-    function closeModal() {
-      document.getElementById("invoiceModal").style.display = "none";
-    }
+    let lastOrderNum = parseInt(localStorage.getItem("lastOrderNum")) || 1000;
 
-    function generateInvoice() {
-      const invoiceNumber = document.getElementById("invoiceNumber").value.trim();
-      const customerName = document.getElementById("customerName").value.trim();
-      const customerAddress = document.getElementById("customerAddress").value.trim();
+    closeModalBtn.onclick = ()=>{modal.style.display="none";}
+    window.onclick=(e)=>{if(e.target===modal) modal.style.display="none";}
 
-      if(invoiceNumber.length !== 11) {
-        alert("Invoice number must be 11 digits!");
-        return;
-      }
-      if(!customerName || !customerAddress) {
-        alert("Please enter customer name and address!");
-        return;
-      }
+    invoiceForm.addEventListener("submit", function(e){
+      e.preventDefault();
+      const name=document.getElementById("customerName").value.trim();
+      const phone=document.getElementById("customerPhone").value.trim();
+      const address=document.getElementById("customerAddress").value.trim();
+      const product=document.getElementById("productSelect").value;
+      const qty=document.getElementById("productQty").value;
+      const memo=document.getElementById("orderMemo").value.trim();
 
-      // Generate products list
-      let productRows = "";
-      const table = document.getElementById("productTable").querySelector("tbody");
-      let totalQty = 0;
+      if(!phone.startsWith("+880") || phone.length<10){alert("Phone must start with +880"); return;}
 
-      table.querySelectorAll("tr").forEach(row => {
-        const name = row.cells[1].innerText;
-        const imgSrc = row.cells[0].querySelector("img").src;
-        const qty = parseInt(row.cells[2].querySelector("input").value) || 0;
-        if(qty > 0){
-          totalQty += qty;
-          productRows += `
-            <tr>
-              <td><img src="${imgSrc}" width="50" alt="${name}"></td>
-              <td>${name}</td>
-              <td>${qty}</td>
-            </tr>
-          `;
-        }
-      });
+      lastOrderNum++;
+      localStorage.setItem("lastOrderNum", lastOrderNum);
 
-      if(totalQty === 0) {
-        alert("Please enter quantity for at least one product!");
-        return;
-      }
+      const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,memo};
+      let orders=JSON.parse(localStorage.getItem("orders"))||[];
+      orders.push(orderData);
+      localStorage.setItem("orders", JSON.stringify(orders));
 
-      const invoiceHTML = `
+      modalContent.innerHTML=`
         <div class="invoice-header">The Style Room</div>
-        <p><strong>Invoice #: </strong>${invoiceNumber}</p>
-        <p><strong>Customer Name:</strong> ${customerName}</p>
-        <p><strong>Address:</strong> ${customerAddress}</p>
-        <table style="width:100%; border-collapse: collapse;">
-          <thead>
-            <tr style="background:#f0f0f0;">
-              <th style="border:1px solid #ccc;padding:5px;">Product Image</th>
-              <th style="border:1px solid #ccc;padding:5px;">Product Name</th>
-              <th style="border:1px solid #ccc;padding:5px;">Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${productRows}
-          </tbody>
-        </table>
-        <div class="invoice-footer">
-          Owner Signature: ___________________
-        </div>
+        <p><strong>Order #:</strong> ${lastOrderNum}</p>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Address:</strong> ${address}</p>
+        <p><strong>Product:</strong> ${product}</p>
+        <p><strong>Quantity:</strong> ${qty}</p>
+        <p><strong>Memo:</strong> ${memo||"N/A"}</p>
+        <div class="invoice-footer">Owner Signature: ___________________</div>
       `;
-
-      document.getElementById("invoiceContent").innerHTML = invoiceHTML;
-      document.getElementById("invoiceModal").style.display = "block";
-    }
-
-    // Close modal if clicked outside
-    window.onclick = function(event) {
-      const modal = document.getElementById("invoiceModal");
-      if (event.target === modal) modal.style.display = "none";
-    }
+      modal.style.display="block";
+      invoiceForm.reset();
+    });
   </script>
-
 </body>
 </html>
