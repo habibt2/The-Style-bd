@@ -12,7 +12,6 @@ const GITHUB_COLUMN_ID = 1; // <-- Column ID যেখানে Card যাব�
 // ======= CUSTOMER ORDER ========
 // ================================
 
-let cart = [];
 const orderForm = document.getElementById("orderForm");
 const orderModal = document.getElementById("orderModal");
 const orderDetails = document.getElementById("orderDetails");
@@ -63,9 +62,9 @@ orderForm.addEventListener("submit", async function(e) {
   const size = document.getElementById("tshirtSize").value;
   const memo = document.getElementById("orderMemo").value.trim();
 
-  // Phone Validation
-  if (!phone.startsWith("880") || phone.length !== 10) {
-    alert("Phone number must start with +880 and 10 digits in total!");
+  // Phone Validation (+880 format check)
+  if (!phone.startsWith("+880") || phone.length < 11) {
+    alert("Phone number must start with +880 and be valid!");
     return;
   }
 
@@ -78,7 +77,9 @@ orderForm.addEventListener("submit", async function(e) {
   const priceMap = {
     "Cool Blue Tee": 500,
     "Urban Black Tee": 600,
-    "Classic White Tee": 550
+    "Classic White Tee": 550,
+    "2 TShirt Combo": 900,
+    "3 TShirt Combo": 1350
   };
   const price = priceMap[tshirt];
 
@@ -135,21 +136,3 @@ async function pushOrderToGitHub(orderData, orderNum) {
   if (!res.ok) throw new Error(`GitHub API Error: ${res.status}`);
   console.log("Order pushed to GitHub Project successfully.");
 }
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Style Room</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-document.querySelectorAll('.top-nav li > a').forEach(item => {
-  item.addEventListener('click', e => {
-    let dropdown = item.nextElementSibling;
-    if(dropdown && dropdown.classList.contains('dropdown')){
-      e.preventDefault();
-      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    }
-  });
-});
