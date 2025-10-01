@@ -12,28 +12,15 @@
   <header class="navbar">
     <img src="logo.png" alt="The StyleRoom Logo" class="logo">
     <nav>
-      <a href="#about">About Us</a>
-      <a href="#products">Products</a>
-      <a href="#order">Order</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a href="invoice.html">Invoice</a>
+      <a href="order.html">Order</a>
+      <a href="styleroom.html">Style Room</a>
+      <a href="dashboard.html">Dashboard</a>
     </nav>
   </header>
-<header>
-  <nav class="top-nav">
-    <ul>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li>
-        <a href="#">Order Place ▾</a>
-        <ul class="dropdown">
-          <li><a href="invoice.html">Invoice Create</a></li>
-        </ul>
-      </li>
-      <li><a href="order.html">Order</a></li>
-      <li><a href="styleroom.html">Style Room</a></li>
-      <li><a href="dashboard.html">Dashboard</a></li>
-    </ul>
-  </nav>
-</header>
+
   <!-- Hero Section -->
   <section class="hero">
     <img src="logo.png" alt="Logo" class="hero-logo">
@@ -78,20 +65,19 @@
       <button class="add-to-cart" data-name="Classic White Tee" data-price="550" data-image="tshirt3.jpg">Add to Cart</button>
     </div>
 
-<div class="product">
-      <img src="tshirt4.jpg" alt="Cool Blue Tee">
+    <div class="product">
+      <img src="tshirt4.jpg" alt="2 TShirt Combo">
       <h3>2 TShirt Combo</h3>
       <p>Price: 900 BDT</p>
-      <button class="add-to-cart" data-name="Cool Blue Tee" data-price="900" data-image="tshirt1.jpg">Add to Cart</button>
+      <button class="add-to-cart" data-name="2 TShirt Combo" data-price="900" data-image="tshirt4.jpg">Add to Cart</button>
     </div>
 
-<div class="product">
-      <img src="tshirt5.jpg" alt="Cool Blue Tee">
+    <div class="product">
+      <img src="tshirt5.jpg" alt="3 TShirt Combo">
       <h3>3 TShirt Combo</h3>
       <p>Price: 1350 BDT</p>
-      <button class="add-to-cart" data-name="Cool Blue Tee" data-price="1350" data-image="tshirt1.jpg">Add to Cart</button>
+      <button class="add-to-cart" data-name="3 TShirt Combo" data-price="1350" data-image="tshirt5.jpg">Add to Cart</button>
     </div>
-
 
    </section>
 
@@ -100,13 +86,15 @@
     <h2>Place Your Order</h2>
     <form id="orderForm">
       <input type="text" id="customerName" placeholder="Your Name" required>
-      <input type="text" id="customerPhone" placeholder="Phone Number" value="+880" required>
+      <input type="text" id="customerPhone" placeholder="Phone Number (+880...)" required>
       <input type="text" id="customerAddress" placeholder="Address (max 300 characters)" maxlength="300" required>
       <select id="tshirtSelect" required>
         <option value="">Select T-shirt</option>
         <option value="Cool Blue Tee">Cool Blue Tee</option>
         <option value="Urban Black Tee">Urban Black Tee</option>
         <option value="Classic White Tee">Classic White Tee</option>
+        <option value="2 TShirt Combo">2 TShirt Combo</option>
+        <option value="3 TShirt Combo">3 TShirt Combo</option>
       </select>
       <select id="tshirtSize" required>
         <option value="">Select Size</option>
@@ -135,4 +123,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-<script src="script.js"></script>
