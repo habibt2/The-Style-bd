@@ -135,3 +135,21 @@ async function pushOrderToGitHub(orderData, orderNum) {
   if (!res.ok) throw new Error(`GitHub API Error: ${res.status}`);
   console.log("Order pushed to GitHub Project successfully.");
 }
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Style Room</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+document.querySelectorAll('.top-nav li > a').forEach(item => {
+  item.addEventListener('click', e => {
+    let dropdown = item.nextElementSibling;
+    if(dropdown && dropdown.classList.contains('dropdown')){
+      e.preventDefault();
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+  });
+});
