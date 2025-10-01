@@ -27,6 +27,7 @@ th{background:#f0f0f0;}
         <th>Address</th>
         <th>Product</th>
         <th>Quantity</th>
+        <th>Size</th>
         <th>Memo</th>
       </tr>
     </thead>
@@ -51,6 +52,7 @@ function loadOrders(filter=""){
       <td>${o.address}</td>
       <td>${o.product}</td>
       <td>${o.qty}</td>
+      <td>${o.size}</td>
       <td>${o.memo||"N/A"}</td>
     `;
     savedOrdersTable.appendChild(row);
@@ -66,86 +68,7 @@ searchBox.addEventListener("input", (e)=>{
 });
 </script>
 </body>
-</html>      const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,memo};
-      let      const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,memo};
-      let    <form id="orderForm">
-      <input type="text" id="customerName" placeholder="Customer Name" required>
-      <input type="text" id="customerPhone" placeholder="Phone Number (+880)" value="+880" required>
-      <input type="text" id="customerAddress" placeholder="Address (max 300 chars)" maxlength="300" required>
-      <select id="tshirtSelect" required>
-        <option value="">Select T-shirt</option>
-        <option value="Cool Blue Tee">Cool Blue Tee</option>
-        <option value="Urban Black Tee">Urban Black Tee</option>
-        <option value="Classic White Tee">Classic White Tee</option>
-      </select>
-      <select id="tshirtSize" required>
-        <option value="">Select Size</option>
-        <option value="S">S</option>
-        <option value="M">M</option>
-        <option value="L">L</option>
-        <option value="XL">XL</option>
-      </select>
-      <textarea id="orderMemo" placeholder="Order Memo / Notes (Optional)"></textarea>
-
-      <div class="buttons">
-        <button type="reset" class="cancel">Cancel</button>
-        <button type="submit" class="submit">Submit Order</button>
-      </div>
-    </form>
-
-    <h3>Previous Orders / Memos</h3>
-    <table id="savedOrders">
-      <thead>
-        <tr>
-          <th>Order #</th>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Product</th>
-          <th>Size</th>
-          <th>Memo</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <!-- Modal -->
-  <div id="orderModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <img src="logo.png" class="modal-logo" alt="Logo">
-      <div class="modal-inner" id="modalContent"></div>
-    </div>
-  </div>
-
-  <script>
-    const orderForm = document.getElementById("orderForm");
-    const modal = document.getElementById("orderModal");
-    const modalContent = document.getElementById("modalContent");
-    const closeModalBtn = document.querySelector(".close");
-    const savedOrdersTable = document.querySelector("#savedOrders tbody");
-
-    let lastOrderNum = parseInt(localStorage.getItem("lastOrderNum")) || 1000;
-
-    // Show saved orders
-    function loadOrders() {
-      savedOrdersTable.innerHTML = "";
-      const orders = JSON.parse(localStorage.getItem("orders")) || [];
-      orders.forEach(o => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${o.orderNum}</td>
-          <td>${o.name}</td>
-          <td>${o.phone}</td>
-          <td>${o.tshirt}</td>
-          <td>${o.size}</td>
-          <td>${o.memo || "N/A"}</td>
-        `;
-        savedOrdersTable.appendChild(row);
-      });
-    }
-
-    loadOrders();
+</html>    loadOrders();
 
     closeModalBtn.onclick = () => { modal.style.display = "none"; };
     window.onclick = (e) => { if(e.target === modal) modal.style.display = "none"; }
