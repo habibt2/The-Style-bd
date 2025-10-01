@@ -4,7 +4,59 @@ body {
   background: #f8f8f8;
   color: #333;
 }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+}
 
+.top-nav {
+  background-color: #222;
+  padding: 10px 20px;
+}
+
+.top-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+}
+
+.top-nav li {
+  position: relative;
+}
+
+.top-nav a {
+  text-decoration: none;
+  color: white;
+  padding: 8px 12px;
+  display: block;
+}
+
+.top-nav .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #333;
+  padding: 0;
+  border-radius: 4px;
+}
+
+.top-nav .dropdown li {
+  width: 180px;
+}
+
+.top-nav li:hover .dropdown {
+  display: block;
+}
+
+.top-nav a:hover {
+  background: #444;
+  border-radius: 4px;
+}
 /* Navbar */
 .navbar {
   display: flex;
