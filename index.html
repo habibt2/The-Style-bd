@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Style Room</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <img src="logo.png" alt="The StyleRoom Logo" class="logo">
+    <nav>
+      <a href="#about">About Us</a>
+      <a href="#products">Products</a>
+      <a href="#order">Order</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <img src="logo.png" alt="Logo" class="hero-logo">
+    <h1>Welcome to The StyleRoom</h1>
+    <p>স্টাইলিশ টি-শার্ট আপনার হাতের নাগালে</p>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <h2>আমাদের সম্পর্কে</h2>
+    <p>
+      <strong>The StyleRoom</strong> হলো একটি অনলাইন শপ যেখানে আপনি
+      পাবেন ইউনিক ডিজাইনের টি-শার্ট, আধুনিক কালেকশন এবং সাশ্রয়ী দামে
+      আপনার পছন্দের পোশাক।  
+      আমাদের লক্ষ্য হচ্ছে প্রতিটি কাস্টমারের জন্য ফ্যাশনকে সহজ এবং
+      অ্যাক্সেসযোগ্য করা। 
+    </p>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="products">
+    <h2>আমাদের টি-শার্ট কালেকশন</h2>
+
+    <div class="product">
+      <img src="tshirt1.jpg" alt="Cool Blue Tee">
+      <h3>Cool Blue Tee</h3>
+      <p>Price: 500 BDT</p>
+      <button class="add-to-cart" data-name="Cool Blue Tee" data-price="500" data-image="tshirt1.jpg">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="tshirt2.jpg" alt="Urban Black Tee">
+      <h3>Urban Black Tee</h3>
+      <p>Price: 600 BDT</p>
+      <button class="add-to-cart" data-name="Urban Black Tee" data-price="600" data-image="tshirt2.jpg">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="tshirt3.jpg" alt="Classic White Tee">
+      <h3>Classic White Tee</h3>
+      <p>Price: 550 BDT</p>
+      <button class="add-to-cart" data-name="Classic White Tee" data-price="550" data-image="tshirt3.jpg">Add to Cart</button>
+    </div>
+
+<div class="product">
+      <img src="tshirt4.jpg" alt="Cool Blue Tee">
+      <h3>2 TShirt Combo</h3>
+      <p>Price: 900 BDT</p>
+      <button class="add-to-cart" data-name="Cool Blue Tee" data-price="900" data-image="tshirt1.jpg">Add to Cart</button>
+    </div>
+
+<div class="product">
+      <img src="tshirt5.jpg" alt="Cool Blue Tee">
+      <h3>3 TShirt Combo</h3>
+      <p>Price: 1350 BDT</p>
+      <button class="add-to-cart" data-name="Cool Blue Tee" data-price="1350" data-image="tshirt1.jpg">Add to Cart</button>
+    </div>
+
+
+   </section>
+
+  <!-- Order Form -->
+  <section id="order" class="order-section">
+    <h2>Place Your Order</h2>
+    <form id="orderForm">
+      <input type="text" id="customerName" placeholder="Your Name" required>
+      <input type="text" id="customerPhone" placeholder="Phone Number" value="+880" required>
+      <input type="text" id="customerAddress" placeholder="Address (max 300 characters)" maxlength="300" required>
+      <select id="tshirtSelect" required>
+        <option value="">Select T-shirt</option>
+        <option value="Cool Blue Tee">Cool Blue Tee</option>
+        <option value="Urban Black Tee">Urban Black Tee</option>
+        <option value="Classic White Tee">Classic White Tee</option>
+      </select>
+      <select id="tshirtSize" required>
+        <option value="">Select Size</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+      <textarea id="orderMemo" placeholder="Order Memo / Notes (Optional)"></textarea>
+      <button type="submit">Place Order</button>
+    </form>
+  </section>
+
+  <!-- Order Confirmation Modal -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <img src="logo.png" alt="Logo" class="modal-logo">
+      <h2>Order Placed Successfully!</h2>
+      <p id="orderNumber">Order #: 1001</p>
+      <div id="orderDetails"></div>
+      <p>Thank you for your order! We will contact you soon.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+body {
+  font-family: "Noto Sans Bengali", sans-serif;
+  margin: 0;
+  background: #f8f8f8;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #222;
+}
+.navbar .logo { height: 50px; }
+.navbar nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Hero */
+.hero {
+  height: 70vh;
+  background: url('background-tshirt.jpg') no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+.hero-logo { width: 120px; margin-bottom: 20px; }
+
+/* About */
+.about { padding: 30px; background: white; text-align: center; max-width: 800px; margin: 30px auto; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+/* Products */
+.products { display: flex; justify-content: center; gap: 20px; padding: 40px; flex-wrap: wrap; }
+.product { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 200px; text-align: center; }
+.product img { width: 100%; border-radius: 8px; }
+.product button { background: #ff5722; color: white; padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+.product button:hover { background: #e64a19; }
+
+/* Order Form */
+.order-section { padding: 30px; background: white; margin: 40px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 500px; margin-left: auto; margin-right: auto; }
+.order-section input, .order-section select, .order-section textarea { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid #ccc; }
+
+/* Modal */
+.modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
+.modal-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 15px; max-width: 400px; text-align: center; animation: fadeIn 0.5s ease; }
+.modal-logo { width: 100px; margin-bottom: 15px; }
+.close { color: #aaa; float: right; font-size: 28px; cursor: pointer; }
+.close:hover { color: #000; }
+@keyframes fadeIn { from {opacity:0; transform: scale(0.8);} to {opacity:1; transform: scale(1);} }
