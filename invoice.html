@@ -35,7 +35,14 @@ button { padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font
       <option value="Urban Black Tee">Urban Black Tee</option>
       <option value="Classic White Tee">Classic White Tee</option>
     </select>
-    <input type="number" id="productQty" placeholder="Quantity" min="1" value="1">
+    <input type="number" id="productQty" placeholder="Quantity" min="1" value="1" required>
+    <select id="tshirtSize" required>
+      <option value="">Select Size</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+    </select>
     <textarea id="orderMemo" placeholder="Order Memo / Notes (Optional)"></textarea>
     <div class="buttons">
       <button type="reset" class="cancel">Cancel</button>
@@ -71,6 +78,7 @@ invoiceForm.addEventListener("submit",function(e){
   const address=document.getElementById("customerAddress").value.trim();
   const product=document.getElementById("productSelect").value;
   const qty=document.getElementById("productQty").value;
+  const size=document.getElementById("tshirtSize").value;
   const memo=document.getElementById("orderMemo").value.trim();
 
   if(!phone.startsWith("+880") || phone.length<10){alert("Phone must start with +880"); return;}
@@ -78,12 +86,11 @@ invoiceForm.addEventListener("submit",function(e){
   lastOrderNum++;
   localStorage.setItem("lastOrderNum",lastOrderNum);
 
-  const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,memo};
+  const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,size,memo};
   let orders=JSON.parse(localStorage.getItem("orders"))||[];
   orders.push(orderData);
   localStorage.setItem("orders",JSON.stringify(orders));
 
-  // Show Modal Invoice
   modalContent.innerHTML=`
     <div class="invoice-header">The Style Room</div>
     <div class="invoice-body">
@@ -93,6 +100,7 @@ invoiceForm.addEventListener("submit",function(e){
       <p><strong>Address:</strong> ${address}</p>
       <p><strong>Product:</strong> ${product}</p>
       <p><strong>Quantity:</strong> ${qty}</p>
+      <p><strong>Size:</strong> ${size}</p>
       <p><strong>Memo:</strong> ${memo||"N/A"}</p>
     </div>
     <div class="invoice-footer">Owner Signature: ___________________</div>
