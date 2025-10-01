@@ -1,114 +1,72 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order - The Style Room</title>
-  <style>
-    body { font-family:"Noto Sans Bengali", sans-serif; margin:0; padding:0; background:#f5f5f5; color:#333; }
-    .container { max-width:900px; margin:30px auto; background:#fff; padding:20px 30px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
-    h2{text-align:center;margin-bottom:20px;}
-    form input, form select, form textarea { width:100%; padding:10px; margin:8px 0; border-radius:6px; border:1px solid #ccc; }
-    .buttons { display:flex; justify-content:flex-end; gap:15px; margin-top:15px; }
-    button { padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
-    .cancel{background:#ccc;} .submit{background:#ff5722; color:#fff;}
-    table{width:100%; border-collapse:collapse; margin-top:30px;}
-    th,td{border:1px solid #ccc; padding:8px; text-align:center;}
-    th{background:#f0f0f0;}
-    .modal{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999;}
-    .modal-content{background:#fff; margin:30px auto; padding:20px; max-width:700px; border-radius:12px; position:relative;}
-    .modal-logo{width:100px; opacity:0.1; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:0;}
-    .modal-inner{position:relative; z-index:1;}
-    .close{position:absolute; top:10px; right:15px; font-size:28px; cursor:pointer; color:#333;}
-    .invoice-header{text-align:center; margin-bottom:20px; font-size:24px; font-weight:bold;}
-    .invoice-footer{text-align:right; margin-top:30px; font-style:italic;}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders - The Style Room</title>
+<style>
+body { font-family:"Noto Sans Bengali", sans-serif; margin:0; padding:0; background:#f5f5f5; color:#333; }
+.container { max-width:900px; margin:30px auto; background:#fff; padding:20px 30px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+h2{text-align:center;margin-bottom:10px;}
+#searchBox { width:100%; padding:10px; margin-bottom:20px; border-radius:6px; border:1px solid #ccc; font-size:16px; }
+table{width:100%; border-collapse:collapse; margin-top:10px;}
+th,td{border:1px solid #ccc; padding:8px; text-align:center;}
+th{background:#f0f0f0;}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h2>Place Your Order</h2>
-    <form id="orderForm">
-      <input type="text" id="customerName" placeholder="Customer Name" required>
-      <input type="text" id="customerPhone" placeholder="Phone (+880)" value="+880" required>
-      <input type="text" id="customerAddress" placeholder="Address" required>
-      <select id="productSelect" required>
-        <option value="">Select Product</option>
-        <option value="Cool Blue Tee">Cool Blue Tee</option>
-        <option value="Urban Black Tee">Urban Black Tee</option>
-        <option value="Classic White Tee">Classic White Tee</option>
-      </select>
-      <input type="number" id="productQty" placeholder="Quantity" min="1" value="1">
-      <textarea id="orderMemo" placeholder="Order Memo / Notes (Optional)"></textarea>
-      <div class="buttons">
-        <button type="reset" class="cancel">Cancel</button>
-        <button type="submit" class="submit">Submit Order</button>
-      </div>
-    </form>
+<div class="container">
+  <h2>Previous Orders / Memos</h2>
+  <input type="text" id="searchBox" placeholder="Search by Order #">
+  <table id="savedOrders">
+    <thead>
+      <tr>
+        <th>Order #</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Memo</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-    <h3>Previous Orders / Memos</h3>
-    <table id="savedOrders">
-      <thead>
-        <tr>
-          <th>Order #</th>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Memo</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+<script>
+const savedOrdersTable=document.querySelector("#savedOrders tbody");
+const searchBox=document.getElementById("searchBox");
 
-  <!-- Modal -->
-  <div id="orderModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <img src="logo.png" class="modal-logo" alt="Logo">
-      <div class="modal-inner" id="modalContent"></div>
-    </div>
-  </div>
+function loadOrders(filter=""){
+  savedOrdersTable.innerHTML="";
+  const orders=JSON.parse(localStorage.getItem("orders"))||[];
+  const filteredOrders=orders.filter(o=>o.orderNum.toString().includes(filter));
+  filteredOrders.forEach(o=>{
+    const row=document.createElement("tr");
+    row.innerHTML=`
+      <td>${o.orderNum}</td>
+      <td>${o.name}</td>
+      <td>${o.phone}</td>
+      <td>${o.address}</td>
+      <td>${o.product}</td>
+      <td>${o.qty}</td>
+      <td>${o.memo||"N/A"}</td>
+    `;
+    savedOrdersTable.appendChild(row);
+  });
+}
 
-  <script>
-    const orderForm = document.getElementById("orderForm");
-    const modal = document.getElementById("orderModal");
-    const modalContent = document.getElementById("modalContent");
-    const closeModalBtn = document.querySelector(".close");
-    const savedOrdersTable = document.querySelector("#savedOrders tbody");
+// Auto-load all orders initially
+loadOrders();
 
-    let lastOrderNum = parseInt(localStorage.getItem("lastOrderNum")) || 1000;
-
-    closeModalBtn.onclick = ()=>{modal.style.display="none";}
-    window.onclick=(e)=>{if(e.target===modal) modal.style.display="none";}
-
-    function loadOrders(){
-      savedOrdersTable.innerHTML="";
-      const orders = JSON.parse(localStorage.getItem("orders"))||[];
-      orders.forEach(o=>{
-        const row=document.createElement("tr");
-        row.innerHTML=`<td>${o.orderNum}</td><td>${o.name}</td><td>${o.phone}</td><td>${o.product}</td><td>${o.qty}</td><td>${o.memo||"N/A"}</td>`;
-        savedOrdersTable.appendChild(row);
-      });
-    }
-
-    loadOrders();
-
-    orderForm.addEventListener("submit",function(e){
-      e.preventDefault();
-      const name=document.getElementById("customerName").value.trim();
-      const phone=document.getElementById("customerPhone").value.trim();
-      const address=document.getElementById("customerAddress").value.trim();
-      const product=document.getElementById("productSelect").value;
-      const qty=document.getElementById("productQty").value;
-      const memo=document.getElementById("orderMemo").value.trim();
-
-      if(!phone.startsWith("+880") || phone.length<10){alert("Phone must start with +880"); return;}
-
-      lastOrderNum++;
-      localStorage.setItem("lastOrderNum", lastOrderNum);
-
-      const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,memo};
+// Search functionality
+searchBox.addEventListener("input", (e)=>{
+  loadOrders(e.target.value.trim());
+});
+</script>
+</body>
+</html>      const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,memo};
       let      const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,memo};
       let    <form id="orderForm">
       <input type="text" id="customerName" placeholder="Customer Name" required>
