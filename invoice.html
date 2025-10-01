@@ -66,6 +66,12 @@ const modal=document.getElementById("invoiceModal");
 const modalContent=document.getElementById("invoiceContent");
 const closeModalBtn=document.querySelector(".close");
 
+const priceMap = {
+  "Cool Blue Tee": 500,
+  "Urban Black Tee": 600,
+  "Classic White Tee": 550
+};
+
 let lastOrderNum=parseInt(localStorage.getItem("lastOrderNum"))||1000;
 
 closeModalBtn.onclick=()=>{modal.style.display="none";}
@@ -77,7 +83,7 @@ invoiceForm.addEventListener("submit",function(e){
   const phone=document.getElementById("customerPhone").value.trim();
   const address=document.getElementById("customerAddress").value.trim();
   const product=document.getElementById("productSelect").value;
-  const qty=document.getElementById("productQty").value;
+  const qty=parseInt(document.getElementById("productQty").value);
   const size=document.getElementById("tshirtSize").value;
   const memo=document.getElementById("orderMemo").value.trim();
 
@@ -86,7 +92,9 @@ invoiceForm.addEventListener("submit",function(e){
   lastOrderNum++;
   localStorage.setItem("lastOrderNum",lastOrderNum);
 
-  const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,size,memo};
+  const totalAmount = (priceMap[product] || 0) * qty;
+
+  const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,size,memo,totalAmount};
   let orders=JSON.parse(localStorage.getItem("orders"))||[];
   orders.push(orderData);
   localStorage.setItem("orders",JSON.stringify(orders));
@@ -94,20 +102,23 @@ invoiceForm.addEventListener("submit",function(e){
   modalContent.innerHTML=`
     <div class="invoice-header">The Style Room</div>
     <div class="invoice-body">
-      <p><strong>Order #:</strong> ${lastOrderNum}</p>
+      <p><strong>Invoice #:</strong> ${lastOrderNum}</p>
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Phone:</strong> ${phone}</p>
       <p><strong>Address:</strong> ${address}</p>
       <p><strong>Product:</strong> ${product}</p>
       <p><strong>Quantity:</strong> ${qty}</p>
       <p><strong>Size:</strong> ${size}</p>
+      <p><strong>Total Amount:</strong> ${totalAmount} BDT</p>
       <p><strong>Memo:</strong> ${memo||"N/A"}</p>
     </div>
-    <div class="invoice-footer">Owner Signature: ___________________</div>
+    <div class="invoice-footer">Owner Signature: HABIB</div>
   `;
   modal.style.display="block";
   invoiceForm.reset();
 });
 </script>
+</body>
+</html></script>
 </body>
 </html>
