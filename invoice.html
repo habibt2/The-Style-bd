@@ -6,7 +6,7 @@
 <title>Invoice - The Style Room</title>
 <style>
 body { font-family:"Noto Sans Bengali", sans-serif; margin:0; padding:0; background:#f5f5f5; color:#333; }
-.container { max-width:700px; margin:30px auto; background:#fff; padding:20px 30px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+.container { max-width:800px; margin:30px auto; background:#fff; padding:20px 30px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); position:relative; }
 h2{text-align:center; margin-bottom:20px;}
 form input, form select, form textarea { width:100%; padding:10px; margin:8px 0; border-radius:6px; border:1px solid #ccc; }
 .buttons { display:flex; justify-content:flex-end; gap:15px; margin-top:15px; }
@@ -14,10 +14,11 @@ button { padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font
 .cancel{background:#ccc;} .submit{background:#ff5722; color:#fff;}
 .modal{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999;}
 .modal-content{background:#fff; margin:30px auto; padding:20px; max-width:700px; border-radius:12px; position:relative;}
-.modal-logo{width:100px; opacity:0.1; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:0;}
+.modal-logo{width:150px; opacity:0.08; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:0;}
 .modal-inner{position:relative; z-index:1;}
 .close{position:absolute; top:10px; right:15px; font-size:28px; cursor:pointer; color:#333;}
-.invoice-header{text-align:center; margin-bottom:20px; font-size:24px; font-weight:bold;}
+.invoice-header{text-align:center; margin-bottom:20px; font-size:28px; font-weight:bold;}
+.invoice-body p{margin:5px 0;}
 .invoice-footer{text-align:right; margin-top:30px; font-style:italic;}
 </style>
 </head>
@@ -82,15 +83,18 @@ invoiceForm.addEventListener("submit",function(e){
   orders.push(orderData);
   localStorage.setItem("orders",JSON.stringify(orders));
 
+  // Show Modal Invoice
   modalContent.innerHTML=`
     <div class="invoice-header">The Style Room</div>
-    <p><strong>Order #:</strong> ${lastOrderNum}</p>
-    <p><strong>Name:</strong> ${name}</p>
-    <p><strong>Phone:</strong> ${phone}</p>
-    <p><strong>Address:</strong> ${address}</p>
-    <p><strong>Product:</strong> ${product}</p>
-    <p><strong>Quantity:</strong> ${qty}</p>
-    <p><strong>Memo:</strong> ${memo||"N/A"}</p>
+    <div class="invoice-body">
+      <p><strong>Order #:</strong> ${lastOrderNum}</p>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>Address:</strong> ${address}</p>
+      <p><strong>Product:</strong> ${product}</p>
+      <p><strong>Quantity:</strong> ${qty}</p>
+      <p><strong>Memo:</strong> ${memo||"N/A"}</p>
+    </div>
     <div class="invoice-footer">Owner Signature: ___________________</div>
   `;
   modal.style.display="block";
