@@ -68,33 +68,4 @@ searchBox.addEventListener("input", (e)=>{
 });
 </script>
 </body>
-</html>    window.onclick=(e)=>{if(e.target===modal) modal.style.display="none";}
-
-    function loadOrders(){
-      savedOrdersTable.innerHTML="";
-      const orders = JSON.parse(localStorage.getItem("orders"))||[];
-      orders.forEach(o=>{
-        const row=document.createElement("tr");
-        row.innerHTML=`<td>${o.orderNum}</td><td>${o.name}</td><td>${o.phone}</td><td>${o.product}</td><td>${o.qty}</td><td>${o.memo||"N/A"}</td>`;
-        savedOrdersTable.appendChild(row);
-      });
-    }
-
-    loadOrders();
-
-    orderForm.addEventListener("submit",function(e){
-      e.preventDefault();
-      const name=document.getElementById("customerName").value.trim();
-      const phone=document.getElementById("customerPhone").value.trim();
-      const address=document.getElementById("customerAddress").value.trim();
-      const product=document.getElementById("productSelect").value;
-      const qty=document.getElementById("productQty").value;
-      const memo=document.getElementById("orderMemo").value.trim();
-
-      if(!phone.startsWith("+880") || phone.length<10){alert("Phone must start with +880"); return;}
-
-      lastOrderNum++;
-      localStorage.setItem("lastOrderNum", lastOrderNum);
-
-      const orderData={orderNum:lastOrderNum,name,phone,address,product,qty,memo};
-      let
+</html>    
